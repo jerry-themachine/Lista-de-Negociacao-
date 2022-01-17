@@ -11,24 +11,25 @@ class NegociacaoController{
         this._listaNegociacoes = new ListaNegociacoes();
     }
    
+    //Método para adicionar negociação 
     adiciona(event){
-        event.preventDefault();   
-
-                             
-        //Criando a negociação com base nos valores dos dados obtidos através do formulário
-        let negociacao = new Negociacao(
-            DateHelper.textoParaData(this._inputData.value),
-            this._inputQuantidade.value,
-            this._inputValor.value
-        );       
+        event.preventDefault();       
         
-        this._listaNegociacoes.adiciona(negociacao);
+        this._listaNegociacoes.adiciona(this._criaNegociacao());
         this._limpaFormulario();
 
-        console.log(this._listaNegociacoes.negociacoes);
-        
+        console.log(this._listaNegociacoes.negociacoes);        
     }
 
+    //Método para criar negociação com base nos valores dos dados obtidos através do formulário
+    _criaNegociacao() {
+        return new Negociacao(
+            DateHelper.textoParaData(this._inputData.value),
+            this._inputQuantidade.value,
+            this._inputValor.value);
+    }
+
+    //Método para limpeza do formulário preenchido e após ser submetido
     _limpaFormulario() {
         this._inputData.value = '';
         this._inputQuantidade.value = 1;
