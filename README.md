@@ -1,0 +1,4 @@
+Esse projeto está sendo elaborado baseado em aulas de uma plataforma de estudos e aqui usarei ferramentas como o framework Bootstrap e tecnologias como HTML5, CSS3 e javascript.
+Estarei fazendo um treinamento intensivo utilizando javascript Vanilla avançado, com criação de classes, construtores, métodos de classes, métodos estáticos de classes, funções, arrow functions, operadores como spread operator, métodos map, split, get, set, etc. 
+Também irei utilizar com muita frequência o this, fazendo referência ao objeto do qual a função é uma propriedade, ou seja, fazendo referência ao objeto que chama a função no momento.
+Criarei também linhas de erro utilizando o "throw new Error", e também utilizarei um pouco de expressões regulares para validação de alguns campos.
