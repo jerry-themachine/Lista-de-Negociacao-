@@ -11,10 +11,9 @@ class ListaNegociacoes {
 
     get negociacoes() {//Método para leitura das informações da lista
         
-        return this._negociacoes;
+        //Blindando a lista através da criação de um array vazio concatenado com a lista (criando uma cópia da lista) para evitar a interação/alteração de terceiros com a mesma   
+        return [].concat(this._negociacoes);//Método "concat" utilizado para concatenar o array vazio com as informações da lista, criando asssim uma cópia da lista 
     }
-
-
 
 }
 
