@@ -13,16 +13,17 @@ class NegociacaoController{
     adiciona(event){
         event.preventDefault();   
 
-          
-        let data = DateHelper.textoParaData(this._inputData.value);
-                
+                             
         //Criando a negociação com base nos valores dos dados obtidos através do formulário
         let negociacao = new Negociacao(
-            data,
+            DateHelper.textoParaData(this._inputData.value),
             this._inputQuantidade.value,
             this._inputValor.value
         );       
         
+        this._listaNegociacoes.adiciona(negociacao);
+
+        console.log(this._listaNegociacoes.negociacoes);
         
     }
 };
