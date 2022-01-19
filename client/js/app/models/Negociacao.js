@@ -7,11 +7,12 @@ class Negociacao {
         Object.freeze(this);
     }
 
+    
     get volume() {
         return this._quantidade * this._valor;
     }
 
-    get ativo() {
+    get ativo() {        
         return this._ativo;
     }
 
@@ -26,4 +27,5 @@ class Negociacao {
     get valor() {
         return this._valor;
     }
+
 }

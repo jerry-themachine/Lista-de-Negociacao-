@@ -4,6 +4,7 @@ class NegociacaoController{
 
         //transformando "document.getElementById" em uma variável => "$", através de "bind" ele irá manter a associação com "document"
         let $ = document.getElementById.bind(document);
+        let cap =
         
         this._inputAtivo = $('ativo');
         this._inputData = $('data');
@@ -37,10 +38,10 @@ class NegociacaoController{
 
     //Método para limpeza do formulário preenchido e após ser submetido
     _limpaFormulario() {
-        this._inputAtivo = '';
+        this._inputAtivo.value = '';
         this._inputData.value = '';
         this._inputQuantidade.value = 1;
-        this._inputValor.value = 0.0;
+        this._inputValor.value = 0.00.toFixed(2);
 
         this._inputData.focus(); 
     }
