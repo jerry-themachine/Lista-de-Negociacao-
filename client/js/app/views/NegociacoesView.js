@@ -65,13 +65,23 @@ class NegociacoesView {
             <tfoot>
             <th colspan="4">TOTAL INVESTIMENTO</th>
             <td>R$ ${
-                
+                       
+                //Método reduce para retornar o Total do Investimento
                 (function() {
+                    
+                 let totNeg = model.negociacoes.reduce((anterior, atual) => anterior + atual.volume, 0.00);
+                    
+                    return totNeg.toFixed(2);
+                })()             
+
+
+                //Método forEach para retornar o Total do Investimento
+                /* (function() {
                     let total = 0;
                     model.negociacoes.forEach(n => total += n.volume);
                     
                     return total.toFixed(2);
-                })()
+                })() */
             }</td>
             </tfoot>
         </table>
