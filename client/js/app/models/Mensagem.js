@@ -16,5 +16,5 @@ class Mensagem {
     
 }
 
-let mensagem = new Mensagem();
+
 
