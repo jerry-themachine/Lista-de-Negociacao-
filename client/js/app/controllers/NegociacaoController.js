@@ -23,15 +23,26 @@ class NegociacaoController{
     adiciona(event){
         event.preventDefault();       
         
-        this._listaNegociacoes.adiciona(this._criaNegociacao());
+        this._listaNegociacoes.adicionaInformacoesLista(this._criaNegociacao());
         this._negociacoesView.update(this._listaNegociacoes);   
 
-        this._mensagem.texto = 'Negociação efetivada com sucesso';
+        this._mensagem.texto = 'Negociação inserida com sucesso';
         this._mensagemView.update(this._mensagem);
         
         this._limpaFormulario();
 
         console.log(this._listaNegociacoes.negociacoes);        
+    }
+
+    //Método para deletar lista de negociações
+    deleta() {
+
+        this._listaNegociacoes.criaListaVazia();
+        this._negociacoesView.update(this._listaNegociacoes);
+
+        this._mensagem.texto = 'Negociações deletadas com sucesso';
+        this._mensagemView.update(this._mensagem);
+
     }
 
     //Método para criar negociação com base nos valores dos dados obtidos através do formulário
