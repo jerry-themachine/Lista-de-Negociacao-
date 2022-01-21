@@ -9,7 +9,11 @@ class NegociacaoController{
         this._inputData = $('data');
         this._inputQuantidade = $('quantidade');
         this._inputValor = $('valor');
-        this._listaNegociacoes = new ListaNegociacoes();
+        
+        this._listaNegociacoes = new ListaNegociacoes(this, function (model){
+
+            this._negociacoesView.update(model);   
+        });
 
         this._negociacoesView = new NegociacoesView($('negociacoesView'));
         this._negociacoesView.update(this._listaNegociacoes);
@@ -24,8 +28,7 @@ class NegociacaoController{
         event.preventDefault();       
         
         this._listaNegociacoes.adicionaInformacoesLista(this._criaNegociacao());
-        this._negociacoesView.update(this._listaNegociacoes);   
-
+        
         this._mensagem.texto = 'Negociação inserida com sucesso';
         this._mensagemView.update(this._mensagem);
         
@@ -37,8 +40,7 @@ class NegociacaoController{
     //Método para deletar lista de negociações
     deleta() {
 
-        this._listaNegociacoes.criaListaVazia();
-        this._negociacoesView.update(this._listaNegociacoes);
+        this._listaNegociacoes.criaListaVazia();        
 
         this._mensagem.texto = 'Negociações deletadas com sucesso';
         this._mensagemView.update(this._mensagem);
