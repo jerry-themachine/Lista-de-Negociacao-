@@ -1,16 +1,13 @@
 class ListaNegociacoes {
-    constructor(armadilha) {
+    constructor() {
         //Propriedades de negociações => lista vazia
-        this._negociacoes = [];
-        this._armadilha = armadilha;       
+        this._negociacoes = [];       
     }
 
     //Método para adicionar informações na lista de negociações
     adicionaInformacoesLista(negociacao) {
 
-        this._negociacoes.push(negociacao);
-        this._armadilha(this);
-        
+        this._negociacoes.push(negociacao);               
     }
 
     get negociacoes() {//Método para leitura das informações da lista
@@ -21,9 +18,7 @@ class ListaNegociacoes {
 
     //Método para criar lista de negociações vazia
     criaListaVazia() {
-        this._negociacoes = [];
-        this._armadilha(this);        
+        this._negociacoes = [];           
     }
-
-}
+};
 
