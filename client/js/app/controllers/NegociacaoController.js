@@ -4,45 +4,40 @@ class NegociacaoController{
 
         //transformando "document.getElementById" em uma variável => "$", através de "bind" ele irá manter a associação com "document"
         let $ = document.getElementById.bind(document);
-                
+          
+        //Atribuindo os id's do DOM à variáveis
         this._inputAtivo = $('ativo');
         this._inputData = $('data');
         this._inputQuantidade = $('quantidade');
         this._inputValor = $('valor');
         
-        /* let self = this;
+       
+        //Padrão de projeto ProxyFactory para atualizar a ListaNegociacoes quando inserido ou deletado uma nova negociação    
+        
 
-        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
-
-            get(target, prop, receiver) {
-
-                if(['adiciona', 'esvazia'].includes(prop) && typeof(target[prop]) == typeof (Function)){
-
-                    return function() {
-
-                        console.log(`Interceptando ${prop}`);  
-                        Reflect.apply(target[prop], target, arguments);
-                        self._negociacoesView.update(target);
-
-                    }
-
-               }
-
-                return Reflect.get(target, prop, receiver);
-            }
-        });   */    
-
-        //Padrão de projeto ProxyFactory para atualizar a ListaNegociacoes quando inserido ou deletado uma nova negociação       
-        this._listaNegociacoes = ProxyFactory.create(new ListaNegociacoes(), ['adiciona', 'esvazia'], (model) => this._negociacoesView.update(model));
-
+        //Instanciando  a classe NegociacoesView
         this._negociacoesView = new NegociacoesView($('negociacoesView'));
-        this._negociacoesView.update(this._listaNegociacoes);
+        
+        //Instanciando a classe Bind
+        this._listaNegociacoes = new Bind(
+            new ListaNegociacoes(), 
+            this._negociacoesView, 
+            ['adiciona', 'esvazia']
+            );
+                     
 
         //Padrão de projeto ProxyFactory para atualizar a Mensagem quando inserido ou deletado uma nova negociação
-        this._mensagem = ProxyFactory.create(new Mensagem(), ['texto'], (model) => this._mensagemView.update(model));
-        this._mensagemView = new MensagemView($('mensagemView'));
-        this._mensagemView.update(this._mensagem);
         
+        //Instanciando a classe MensagemView
+        this._mensagemView = new MensagemView($('mensagemView'));
+        
+        //Instanciando a classe Bind
+        this._mensagem = new Bind (
+            new Mensagem(),
+            this._mensagemView,
+            ['texto']
+        );
+                   
     }
    
     //Método para adicionar negociação 
