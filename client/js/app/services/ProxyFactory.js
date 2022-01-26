@@ -2,11 +2,11 @@ class ProxyFactory {
 
     static create(objeto, props, acao) {
 
-        return new Proxy(new ListaNegociacoes(), {
+        return new Proxy(objeto, {
             
-            get(target, prop, receiver) {
+            get(target, prop, receiver) {//Para lidar com métodos
                 
-                if(props.includes(prop) && typeof(target[prop]) == typeof(Function)) {
+                if(props.includes(prop) && ProxyFactory._ehFuncao(target[prop])) {
                     
                     return function() {
                         
@@ -17,9 +17,25 @@ class ProxyFactory {
                 }
                 
                 return Reflect.get(target, prop, receiver);
+            },
+
+            set(target, prop, value, receiver) {//para lidar com propriedades
+
+                if(props.includes(prop)) {
+                    //target(prop) = value;
+                    acao(target);
+                }
+                return Reflect.set(target, prop, value, receiver);
+                acao(target);
             }
             
         });       
 
+    }
+    
+
+    static _ehFuncao(func){
+
+        return typeof(func) == typeof(Function);
     }
 }
