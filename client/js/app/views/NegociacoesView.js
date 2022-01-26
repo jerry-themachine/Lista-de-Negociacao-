@@ -1,6 +1,7 @@
 class NegociacoesView extends View {
 
     constructor(elemento) {
+        
         super(elemento);
     }
 
@@ -22,7 +23,7 @@ class NegociacoesView extends View {
 
                 ${model.negociacoes.map((n) => {
 
-//Criando uma nova lista que para cada negociação criada, seja criado também uma "tr" com os dados da negociação percorrida pelo "map"
+//Criando uma nova lista para que cada negociação criada, seja criado também uma "tr" com os dados da negociação percorrida pelo "map"
                     return `
                         <tr>
                             <td>${
@@ -31,7 +32,7 @@ class NegociacoesView extends View {
 
                                     //Convertendo primeiro caractére em maiúsculo
                                    let textToUper = n.ativo.charAt(0).toUpperCase() + n.ativo.slice(1);
-                                
+                                                                   
                                     for (let i = 0; i < textToUper.length; i++) {
                                         if (textToUper.charAt(i) ===" ") {
                                 
