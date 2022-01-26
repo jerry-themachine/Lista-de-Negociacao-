@@ -9,33 +9,34 @@ class NegociacaoController{
         this._inputAtivo = $('ativo');
         this._inputData = $('data');
         this._inputQuantidade = $('quantidade');
-        this._inputValor = $('valor');
+        this._inputValor = $('valor');     
+                          
         
-       
-        //Padrão de projeto ProxyFactory para atualizar a ListaNegociacoes quando inserido ou deletado uma nova negociação    
-        
-
-        //Instanciando  a classe NegociacoesView
-        this._negociacoesView = new NegociacoesView($('negociacoesView'));
-        
-        //Instanciando a classe Bind
-        this._listaNegociacoes = new Bind(
-            new ListaNegociacoes(), 
-            this._negociacoesView, 
-            ['adiciona', 'esvazia']
+        //Instanciando a classe Bind para chamar o padrão de projeto ProxyFactory que atualiza a ListaNegociacoes quando é inserida ou deletada uma nova negociação  
+        this._listaNegociacoes = new Bind(      // => (model, view, props)
+            new ListaNegociacoes(), // => (model)
+            
+            //Instanciando  a classe NegociacoesView
+            new NegociacoesView($('negociacoesView')), // => (view)
+            //['adiciona', 'esvazia'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
+            
+            'adiciona', 'esvazia' // => (props)
             );
                      
 
         //Padrão de projeto ProxyFactory para atualizar a Mensagem quando inserido ou deletado uma nova negociação
         
-        //Instanciando a classe MensagemView
-        this._mensagemView = new MensagemView($('mensagemView'));
-        
+       
+               
         //Instanciando a classe Bind
-        this._mensagem = new Bind (
-            new Mensagem(),
-            this._mensagemView,
-            ['texto']
+        this._mensagem = new Bind (      // => (model, view, props)
+            new Mensagem(), // => (model)
+            
+            //Instanciando a classe MensagemView
+            new MensagemView($('mensagemView')), // => (view)
+            //['texto'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
+
+            'texto' // => (props)
         );
                    
     }
