@@ -32,34 +32,17 @@ class NegociacaoController{
             }
         });   */    
 
-//Padrão de projeto Proxy
-let self = this;
-        
-        this._listaNegociacoes = new Proxy(new ListaNegociacoes(), {
-            
-            get(target, prop, receiver) {
-                
-                if(['adiciona', 'esvazia'].includes(prop) && typeof(target[prop]) == typeof(Function)) {
-                    
-                    return function() {
-                        
-                         console.log(`interceptando ${prop}`);
-                         Reflect.apply(target[prop], target, arguments);
-                         self._negociacoesView.update(target);
-                    }
-                }
-                
-                return Reflect.get(target, prop, receiver);
-            }
-            
-        });       
+        //Padrão de projeto ProxyFactory para atualizar a ListaNegociacoes quando inserido ou deletado uma nova negociação       
+        this._listaNegociacoes = ProxyFactory.create(new ListaNegociacoes(), ['adiciona', 'esvazia'], (model) => this._negociacoesView.update(model));
 
         this._negociacoesView = new NegociacoesView($('negociacoesView'));
         this._negociacoesView.update(this._listaNegociacoes);
 
-        this._mensagem = new Mensagem();
+        //Padrão de projeto ProxyFactory para atualizar a Mensagem quando inserido ou deletado uma nova negociação
+        this._mensagem = ProxyFactory.create(new Mensagem(), ['texto'], (model) => this._mensagemView.update(model));
         this._mensagemView = new MensagemView($('mensagemView'));
         this._mensagemView.update(this._mensagem);
+        
     }
    
     //Método para adicionar negociação 
@@ -69,7 +52,7 @@ let self = this;
         this._listaNegociacoes.adiciona(this._criaNegociacao());
         
         this._mensagem.texto = 'Negociação inserida com sucesso';
-        this._mensagemView.update(this._mensagem);
+        //this._mensagemView.update(this._mensagem);//Foi para o ProxyFactory
         
         this._limpaFormulario();
 
@@ -82,7 +65,7 @@ let self = this;
         this._listaNegociacoes.esvazia();        
 
         this._mensagem.texto = 'Negociações deletadas com sucesso';
-        this._mensagemView.update(this._mensagem);
+        //this._mensagemView.update(this._mensagem);//Foi para o ProxyFactory
 
     }
 
