@@ -1,6 +1,7 @@
 class Mensagem {
 
     constructor(texto = '') {//Adotanto valor em branco caso não houver texto na classe Mensagem
+        
         this._texto = texto;
     }
 
@@ -11,7 +12,7 @@ class Mensagem {
 
     set texto(texto) {
 
-        return this._texto = texto;
+        this._texto = texto;
     } 
     
 }
