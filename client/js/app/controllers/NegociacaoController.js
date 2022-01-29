@@ -59,53 +59,24 @@ class NegociacaoController{
     //Método para importar negociações 
     importaNegociacoes() {
         
-        //Criando uma instância de XMLHttprequest
-        let xhr = new XMLHttpRequest();
+        let service = new NegociacaoService();
 
-        //Indicando qual o método utilizar e qual endereço acessar
-        xhr.open('GET', 'negociacoes/semana');
+        //Convençao para lidar com programação assíncrona, denominada => 'error first'
+        service.obterNegociacoesDaSemana((erro, negociacoes) => {
 
-        /*CONFIGURAÇÕES*/
-        
-       /*  
-       //Estados de uma requisição AJAX
-
-       0: requisição ainda não iniciada
-
-        1: conexão com o servidor ainda não estabelecida
-
-        2: requisição recebida
-
-        3: processando requisição
-
-        4: requisição concluída e a resposta está pronta
-        */
-        xhr.onreadystatechange = () => {
-
-            if(xhr.readyState == 4){
-
-                if(xhr.status == 200) {//Status code genérico, indivca que foi executado sem problema
-                    console.log('Obtendo requisições do servidor');
-                    //Retornando dados obtidos através dos servidor e convertendo objeto para string 
-                    JSON.parse(xhr.responseText)
-                    .map(objeto => new Negociacao(objeto.ativo, new Date(objeto.data), objeto.quantidade, objeto.valor))                    
-                    .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-                    //this._mensagem.texto = 
-                    console.log('Negociações da semana inseridas com sucesso');  
-                    this._mensagem.texto = 'Negociação inserida com sucesso';
-                                    
-                    
-                } else {
-                    
-                    //Retornando mensagem de erro do servidor
-                    console.log(xhr.responseText);
-                    this._mensagem.texto = 'Não foi possível obter as negociações da semana';
-                }
+            //Gerando mensagem de erroo e parando execução
+            if(erro) {
+                this._mensagem.texto = erro;
+                return;
             }
-        };
 
-        //Enviando
-        xhr.send();
+            //Executando e adicionando normalmente as negociações exibindo a mensagem abaixo
+            negociacoes.forEach(negociacao => {
+                this._listaNegociacoes.adiciona(negociacao);
+            })
+            this._mensagem.texto = 'Negociações importadas com sucesso';    
+
+        }); 
     }
 
     //Método para deletar lista de negociações
