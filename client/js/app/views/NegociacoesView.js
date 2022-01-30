@@ -11,11 +11,18 @@ class NegociacoesView extends View {
         <table class="table table-hover table-bordered">
             <thead>
                 <tr>
-                    <th>CÓDIGO DO ATIVO</th>
-                    <th>DATA NEGOCIAÇÃO</th>
-                    <th>QUANTIDADE DE ATIVOS</th>
-                    <th>PREÇO DO ATIVO</th>
-                    <th>VOLUME INVESTIMENTO</th>
+                    <th style="text-align: center; vertical-align:middle">BANCO - RAZÃO SOCIAL</th>
+                    <th style="text-align: center; vertical-align:middle">PAÍS</th>
+                    <th style="text-align: center; vertical-align:middle">DATA<br>COMPRA</th>
+
+                    <th style="text-align: center; vertical-align:middle">VARIAÇÂO<br>(%)</th>
+                    <th style="text-align: center; vertical-align:middle">BOLSA</th> 
+                    <th style="text-align: center; vertical-align:middle">CÒDIGO</th>   
+                                    
+                    <th style="text-align: center; vertical-align:middle">RETORNO<br>30 DIAS</th>
+                    <th style="text-align: center; vertical-align:middle">COTA</th>
+                    <th style="text-align: center; vertical-align:middle">VALOR <br> UNIT.</th>
+                    <th style="text-align: center; vertical-align:middle">TOTAL <br> COMPRA</th>
                 </tr>
             </thead>
             
@@ -31,7 +38,7 @@ class NegociacoesView extends View {
                                 (function () {
 
                                     //Convertendo primeiro caractére em maiúsculo
-                                   let textToUper = n.ativo.charAt(0).toUpperCase() + n.ativo.slice(1);
+                                   let textToUper = n.banco.charAt(0).toUpperCase() + n.banco.slice(1);
                                                                    
                                     for (let i = 0; i < textToUper.length; i++) {
                                         if (textToUper.charAt(i) ===" ") {
@@ -54,10 +61,15 @@ class NegociacoesView extends View {
                                 })()                             
                                                                                    
                             }</td>
+                            <td>${n.pais}</td>
                             <td>${DateHelper.dataParaTexto(n.data)}</td>
-                            <td>${n.quantidade}</td>
-                            <td>R$ ${n.valor}</td>
-                            <td>R$ ${n.volume.toFixed(2)}</td>
+                            <td>${n.variacao}</td>
+                            <td style="text-align: center">${n.bolsa}</td>
+                            <td style="text-align: center">${n.codigo}</td>
+                            <td style="text-align: center">${n.retorno.toFixed(3)}</td>
+                            <td style="text-align: center">${n.cota}</td>
+                            <td>US$ ${n.valor}</td>
+                            <td>US$ ${n.total.toFixed(3)}</td>
                         </tr>
                     `
 //Transformando o array que contém strings em uma string gigante para ser inserido na interpolação do conteúdo do "tbody"
@@ -65,25 +77,7 @@ class NegociacoesView extends View {
             </tbody>
             <tfoot>
             <th colspan="4">TOTAL INVESTIMENTO</th>
-            <td>R$ ${
-                       
-                //Método reduce para retornar o Total do Investimento
-                (function() {
-                    
-                 let totNeg = model.negociacoes.reduce((anterior, atual) => anterior + atual.volume, 0.00);
-                    
-                    return totNeg.toFixed(2);
-                })()             
-
-
-                //Método forEach para retornar o Total do Investimento
-                /* (function() {
-                    let total = 0;
-                    model.negociacoes.forEach(n => total += n.volume);
-                    
-                    return total.toFixed(2);
-                })() */
-            }</td>
+            <td>US$ ${model.volumeTotal}</td>
             </tfoot>
         </table>
         `;

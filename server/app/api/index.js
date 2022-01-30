@@ -8,35 +8,37 @@ var dateRetrasada = new Date();
 dateRetrasada.setDate(dataAtual.getDate() - 14);
 
 var negociacoes = [
-      { ativo: 'Vivo', data : dataAtual, quantidade : 10, valor : 150},
-      { ativo: 'Coca-Cola', data : dataAtual, quantidade : 242, valor : 250},
-      { ativo: 'Sapataria Dig', data : dataAtual, quantidade : 3, valor : 3050},
-      { ativo: 'Comeem seguros', data :dataAtual, quantidade : 100, valor : 4.50},
-      { ativo: 'Soulan empreiteira', data : dataAtual, quantidade : 75, valor : 15.20},
-      { ativo: 'Faka utensílios domésticos', data : dataAtual, quantidade : 3, valor : 650},
-      { ativo: 'Hugo Bess', data : dataAtual, quantidade : 100, valor : 0.75},
-      { ativo: 'Hornet create & inovation', data : dataAtual, quantidade : 200, valor : 9.50},
-      { ativo: 'Ulhugf bermudas', data : dataAtual, quantidade :115, valor : 95.00},
+      { banco: "Bank Bilbao Vizcaya Argent. SA", pais: "Espanha", data: dataAtual, variacao: -2.400, bolsa: "NYSE", codigo: "BBVA", retorno: -7.05, cota: 15, valor: 31.672},
+      { banco: "Toronto Dominion Bank", pais: "Canadá", data: dataAtual, variacao: -7.779, bolsa: "NYSE", codigo: "TD", retorno: -7.27, cota: 10, valor: 99.189},
+      { banco: "Bradesco", pais: "Brasil", data: dataAtual, variacao: -7.028, bolsa: "BOVESPA", codigo: "BBDC4", retorno: -7.80, cota: 15, valor: 83.337},
+      { banco: "HSBC Holdings PLC", pais: "Inglaterra", data:dataAtual,  variacao: -17.347, bolsa: "NYSE", codigo: "HSBC", retorno: -9.35, cota: 5, valor: 146.191},
+      { banco: "JP Morgan Chase & CO", pais: "USA", data: dataAtual, variacao: -19.633, bolsa: "NYSE", codigo: "JPM", retorno: -5.29, cota: 5, valor: 31.276},
+      { banco: "Northen Trust Corp", pais: "USA", data: dataAtual, variacao: -2.526, bolsa: "NASDAQ", codigo: "NTRS", retorno: -10.28, cota: 25, valor: 19.117},
+      { banco: "UBS Group AG", pais: "Suiça", data: dataAtual, variacao: -2.199, bolsa: "NYSE", codigo: "UBS", retorno: -5.10, cota: 20, valor: 40.899},
+      { banco: "Royal Bank Of Canada", pais: "Canadá", data: dataAtual, variacao: -5.973, bolsa: "NYSE", codigo: "RY", retorno: -5.26, cota: 15, valor: 107.605},
+      { banco: "Fifth Third Bancorp", pais: "USA", data: dataAtual, variacao: -2.367, bolsa: "NASDAQ", codigo: "FITB", retorno: -10.91, cota: 5, valor: 205.192},
 
-      { ativo: 'Vivo', data : dataAnterior, quantidade : 90, valor : 3.50},
-      { ativo: 'Coca-Cola', data : dataAnterior, quantidade : 55, valor : 25.00},
-      { ativo: 'Sapataria Dig', data : dataAnterior, quantidade : 400, valor : 0.35},
-      { ativo: 'Comeem seguros', data : dataAnterior, quantidade : 1, valor : 4500},
-      { ativo: 'Soulan empreiteira', data : dataAnterior, quantidade : 128, valor : 23.50},
-      { ativo: 'Faka utensílios domésticos', data : dataAnterior, quantidade : 70, valor : 65.0},
-      { ativo: 'Hugo Bess', data : dataAnterior, quantidade : 25, valor : 150.00},
-      { ativo: 'Hornet create & inovation', data : dataAnterior, quantidade : 2, valor : 950.00},
-      { ativo: 'Ulhugf bermudas', data : dataAnterior, quantidade : 13, valor : 855.20},
 
-      { ativo: 'Vivo', data : dateRetrasada, quantidade : 1, valor : 3750.00},
-      { ativo: 'Coca-Cola', data : dateRetrasada, quantidade : 35, valor : 95.10},
-      { ativo: 'Sapataria Dig', data : dateRetrasada, quantidade : 30, valor : 35.0},
-      { ativo: 'Comeem seguros', data : dateRetrasada, quantidade : 1000, valor : 0.45},
-      { ativo: 'Soulan empreiteira', data : dateRetrasada, quantidade : 420, valor : 5.50},
-      { ativo: 'Faka utensílios domésticos', data : dateRetrasada, quantidade : 45, valor : 16.35},
-      { ativo: 'Hugo Bess', data : dateRetrasada, quantidade : 450, valor : 0.75},
-      { ativo: 'Hornet create & inovation', data : dateRetrasada, quantidade : 12, valor : 250.15},
-      { ativo: 'Ulhugf bermudas', data : dateRetrasada, quantidade : 65, valor : 9.50}
+
+      { banco: "Bank Bilbao Vizcaya Argent. SA", pais: "Espanha", data: dataAnterior, variacao: -3.121, bolsa: "NYSE", codigo: "BBVA", retorno: -5.937, cota: 5, valor : 43.517},
+      { banco: "Toronto Dominion Bank", pais: "Canadá", data: dataAnterior, variacao: -6.509, bolsa: "NYSE", codigo: "TD", retorno: -6.383, cota: 5, valor : 105.239},
+      { banco: "Bradesco", pais: "Brasil", data: dataAnterior, variacao: -7.132, bolsa: "BOVESPA", codigo: "BBDC4", retorno: -7.693, cota: 20, valor : 77.395},
+      { banco: "HSBC Holdings PLC", pais: "Inglaterra", data: dataAnterior, variacao: -13.098, bolsa: "NYSE", codigo: "HSBC", retorno: -7.29, cota: 10, valor : 125.357},
+      { banco: "JP Morgan Chase & CO", pais: "USA", data: dataAnterior, variacao: -15.841, bolsa: "NYSE", codigo: "JPM", retorno: -7.96, cota: 10, valor : 23.253},
+      { banco: "Northen Trust Corp", pais: "USA", data: dataAnterior, variacao: -3.627, bolsa: "NASDAQ", codigo: "NTRS", retorno: -12.529, cota: 15, valor : 45.803},
+      { banco: "UBS Group AG", pais: "Suiça", data: dataAnterior, variacao: -2.753, bolsa: "NYSE", codigo: "UBS", retorno: -5.63, cota: 25, valor : 15.741},
+      { banco: "Royal Bank Of Canada", pais: "Canadá", data: dataAnterior, variacao: -4.925, bolsa: "NYSE", codigo: "RY", retorno: -4.52, cota: 20, valor : 123.507},
+      { banco: "Fifth Third Bancorp", pais: "USA", data: dataAnterior, variacao: -2.970, bolsa: "NASDAQ", codigo: "FITB", retorno: -9.375, cota: 5, valor : 196.373},
+
+      { banco: "Bank Bilbao Vizcaya Argent. SA", pais: "Espanha", data: dateRetrasada, variacao: -4.572, bolsa: "NYSE", codigo: "BBVA", retorno: -7.38, cota:  5, valor : 47.893},
+      { banco: "Toronto Dominion Bank", pais: "Canadá", data: dateRetrasada, variacao: -5.021, bolsa: "NYSE", codigo: "TD", retorno: -3.21, cota:  35, valor : 77.196},
+      { banco: "Bradesco", pais: "Brasil", data: dateRetrasada, variacao: -9.261, bolsa: "BOVESPA" ,codigo: "BBCD4", retorno: -9.331, cota:  30, valor : 89.391},
+      { banco: "HSBC Holdings PLC", pais: "Inglaterra", data: dateRetrasada, variacao: -11.539, bolsa: "NYSE", codigo: "HSBC", retorno: -9.374, cota: 20, valor : 107.403},
+      { banco: "JP Morgan Chase & CO", pais: "USA", data: dateRetrasada, variacao: -10.073, bolsa: "NYSE", codigo: "JPM", retorno: -22.902, cota:  20, valor : 33.194},
+      { banco: "Northen Trust Corp", pais: "USA", data: dateRetrasada, variacao: -6.402, bolsa: "NASDAQ", codigo: "NTRS", retorno: -16.991, cota:  45, valor : 32.313},
+      { banco: "UBS Group AG", pais: "Suiça", data: dateRetrasada, variacao: -4.103, bolsa: "NYSE", codigo: "UBS", retorno: -8.339, cota:  20, valor : 11.783},
+      { banco: "Royal Bank Of Canada", pais: "Canadá", data: dateRetrasada, variacao:-4.219 , bolsa: "NYSE", codigo: "RY", retorno: -4.13, cota:  30, valor : 119.135},
+      { banco: "Fifth Third Bancorp", pais: "USA", data: dateRetrasada, variacao: -4.113, bolsa: "NASDAQ", codigo: "FITB", retorno: -14.725, cota:  10, valor : 183.561}
     ];
 
 

@@ -6,9 +6,14 @@ class NegociacaoController{
         let $ = document.getElementById.bind(document);
           
         //Atribuindo os id's do DOM à variáveis
-        this._inputAtivo = $('ativo');
+        this._inputBanco = $('banco');
+        this._pais = $('pais');
         this._inputData = $('data');
-        this._inputQuantidade = $('quantidade');
+        this._inputVariacao = $('variacao');
+        this._inputBolsa = $('bolsa');
+        this._inputCodigo = $('codigo');
+        this._retorno = $('retorno');
+        this._inputCota = $('cota');
         this._inputValor = $('valor');     
                           
         
@@ -93,21 +98,31 @@ class NegociacaoController{
     _criaNegociacao() {
 
         return new Negociacao(
-            this._inputAtivo.value,
+            this._inputBanco.value,
+            this._pais.value,
             DateHelper.textoParaData(this._inputData.value),
-            this._inputQuantidade.value,
+            this._inputVariacao.value,
+            this._inputBolsa.value,
+            this._inputCodigo.value,
+            this._retorno.value,
+            this._inputCota.value,
             this._inputValor.value);
     }
 
     //Método para limpeza do formulário preenchido e após ser submetido
     _limpaFormulario() {
 
-        this._inputAtivo.value = '';
+        this._inputBanco.value = '';
+        this._paisvalue = '';
         this._inputData.value = '';
-        this._inputQuantidade.value = 1;
-        this._inputValor.value = 0.00.toFixed(2);
+        this._inputVariacao.value = 0.00.toFixed(2);
+        this._inputBolsa.value = '';
+        this._inputCodigo.value = '';
+        this._retorno.value = '';
+        this._inputCota.value = 1;
+        this._inputValor.value = 0.000.toFixed(3);
 
-        this._inputAtivo.focus(); 
+        this._inputBanco.focus(); 
     }
 };
 

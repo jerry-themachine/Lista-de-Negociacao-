@@ -6,9 +6,13 @@ class NegociacaoService {
 
         //Criando uma instância de XMLHttprequest
         let xhr = new XMLHttpRequest();
+        let hoje = 'negociacoes/semana';
+        let semanaAnterior = 'negociacoes/anterior';
+        let semanaRetrasada = 'negociacoes/retrasada';
+
 
         //Indicando qual o método utilizar e qual endereço acessar
-        xhr.open('GET', 'negociacoes/semana');
+        xhr.open('GET', hoje);
 
         /*CONFIGURAÇÕES*/
         
@@ -33,12 +37,10 @@ class NegociacaoService {
                     console.log('Obtendo requisições do servidor');
                     //Retornando dados obtidos através dos servidor e convertendo objeto para string 
                     cb(null, JSON.parse(xhr.responseText)
-                    .map(objeto => new Negociacao(objeto.ativo, new Date(objeto.data), objeto.quantidade, objeto.valor)));                 
+                    .map(objeto => new Negociacao(objeto.banco, objeto.pais, new Date(objeto.data), objeto.variacao, objeto.bolsa, objeto.codigo, objeto.retorno, objeto.cota, objeto.valor)));                 
                    
                     console.log('Negociações da semana inseridas com sucesso');  
-                    
-                                    
-                    
+                                  
                 } else {
                     
                     //Retornando mensagem de erro do servidor
@@ -48,7 +50,7 @@ class NegociacaoService {
             }
         };
 
-        //Enviando
+        //Enviando requisição para o servidor
         xhr.send();
     }
 }

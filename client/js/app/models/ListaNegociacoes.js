@@ -27,9 +27,20 @@ class ListaNegociacoes {
         //this._armadilha(this);        
     }
 
+    //Método get, utilizando 'reduce' para retornar o Total do Investimento
     get volumeTotal() {
-        return this._negociacoes.reduce((total, n) => total + n.volume, 0.0);
+        let totNeg = this.negociacoes.reduce((anterior, atual) => anterior + atual.total, 0.000);
+                    
+                    return totNeg.toFixed(3);
      }
+
+    //Método get, utilizando 'forEach' para retornar o Total do Investimento
+    /* get volumeTotal() {
+        let total = 0;
+        this.negociacoes.forEach(n => total += n.volume);
+        
+        return total.toFixed(2);
+    }; */
 
 };
 
