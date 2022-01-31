@@ -67,7 +67,8 @@ class NegociacaoController{
         let service = new NegociacaoService();
 
         //Convençao para lidar com programação assíncrona, denominada => 'error first'
-        service.obterNegociacoesDaSemana((erro, negociacoes) => {
+        //Negociações da semana atual
+        service.obterNegociacoesDaSemanaAtual((erro, negociacoes) => { 
 
             //Gerando mensagem de erroo e parando execução
             if(erro) {
@@ -75,13 +76,43 @@ class NegociacaoController{
                 return;
             }
 
-            //Executando e adicionando normalmente as negociações exibindo a mensagem abaixo
-            negociacoes.forEach(negociacao => {
-                this._listaNegociacoes.adiciona(negociacao);
+            //Executando e adicionando normalmente as negociações 
+            negociacoes.forEach(negociacao => { this._listaNegociacoes.adiciona(negociacao);
             })
-            this._mensagem.texto = 'Negociações importadas com sucesso';    
 
-        }); 
+            //Negociações da semana anterior
+            //Convençao para lidar com programação assíncrona, denominada => 'error first'
+            service.obterNegociacoesDaSemanaAnterior((erro, negociacoes) => {
+
+                //Gerando mensagem de erroo e parando execução
+                if(erro) {
+                    this._mensagem.texto = erro;
+                    return;
+                }
+
+                //Executando e adicionando normalmente as negociações 
+                negociacoes.forEach(negociacao => { this._listaNegociacoes.adiciona(negociacao);
+                })
+                
+                //Negociação da semana retrasada
+                //Convençao para lidar com programação assíncrona, denominada => 'error first'
+                service.obterNegociacoesDaSemanaRetrasada((erro, negociacoes) => {
+
+                    //Gerando mensagem de erroo e parando execução
+                    if(erro) {
+                        this._mensagem.texto = erro;
+                        return;
+                    }
+
+                    //Executando e adicionando normalmente as negociações 
+                    negociacoes.forEach(negociacao => { this._listaNegociacoes.adiciona(negociacao);
+                    })                       
+
+                    //Exibindo a mensagem abaixo quando as negociaçãoes forem importadas 
+                    this._mensagem.texto = 'Negociações importadas com sucesso'
+                });
+            });
+        });                                                                                              
     }
 
     //Método para deletar lista de negociações

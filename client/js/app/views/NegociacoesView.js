@@ -76,7 +76,7 @@ class NegociacoesView extends View {
                 }).join('')}
             </tbody>
             <tfoot>
-            <th colspan="4">TOTAL INVESTIMENTO</th>
+            <th colspan="9">TOTAL INVESTIMENTO</th>
             <td>US$ ${model.volumeTotal}</td>
             </tfoot>
         </table>
