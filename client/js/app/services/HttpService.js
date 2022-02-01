@@ -4,12 +4,11 @@ class HttpService {
         return new Promise((resolve, reject) => {
 
             //Criando uma instância de XMLHttprequest
-            let xhr = new XMLHttpRequest();
-            let atual = url;     
+            let xhr = new XMLHttpRequest();                
     
     
             //Indicando qual o método utilizar e qual endereço acessar
-            xhr.open('GET', atual);
+            xhr.open('GET', url);
     
             /*CONFIGURAÇÕES*/
         
@@ -28,7 +27,7 @@ class HttpService {
             */
             xhr.onreadystatechange = () => {
         
-                if(xhr.readyState == 4){
+                if(xhr.readyState == 4) {
         
                     if(xhr.status == 200) {//Status code genérico, indivca que foi executado sem problema
                         
@@ -47,5 +46,34 @@ class HttpService {
             xhr.send();
 
         });
-    }
+    };
+
+    post(url, dado) {
+
+        return new Promise((resolve, reject) => {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open('POST', url, true);
+            xhr.setRequestHeader('Content-Type', 'application/jason');
+            xhr.onreadystatechange = () => {
+
+                if(xhr.readyState == 4) {
+        
+                    if(xhr.status == 200) {//Status code genérico, indivca que foi executado sem problema
+                        
+                        //Retornando dados obtidos através dos servidor e convertendo objeto para string 
+                        resolve(JSON.parse(xhr.responseText));                              
+                                                                                     
+                    } else {
+                        
+                        //Retornando mensagem de erro do servidor                       
+                        reject(xhr.responseText);
+                    };
+                };
+            };
+
+            //Convertendo um objeto em uma string no formato JSON através de JSON.stringify().
+            xhr.send(JASON.stringify(dado));
+        });
+    };
 }

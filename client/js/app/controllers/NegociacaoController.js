@@ -10,12 +10,12 @@ class NegociacaoController{
           
         //Atribuindo os id's do DOM à variáveis
         this._inputBanco = $('banco');
-        this._pais = $('pais');
+        this._inputPais = $('pais');
         this._inputData = $('data');
         this._inputVariacao = $('variacao');
         this._inputBolsa = $('bolsa');
         this._inputCodigo = $('codigo');
-        this._retorno = $('retorno');
+        this._inputRetorno = $('retorno');
         this._inputCota = $('cota');
         this._inputValor = $('valor');     
                           
@@ -106,12 +106,12 @@ class NegociacaoController{
 
         return new Negociacao(
             this._inputBanco.value,
-            this._pais.value,
+            this._inputPais.value,
             DateHelper.textoParaData(this._inputData.value),
             this._inputVariacao.value,
             this._inputBolsa.value,
             this._inputCodigo.value,
-            this._retorno.value,
+            this._inputRetorno.value,
             this._inputCota.value,
             this._inputValor.value);
     }
@@ -120,12 +120,12 @@ class NegociacaoController{
     _limpaFormulario() {
 
         this._inputBanco.value = '';
-        this._paisvalue = '';
+        this._inputPais.value = '';
         this._inputData.value = '';
-        this._inputVariacao.value = 0.00.toFixed(2);
+        this._inputVariacao.value = 0.000.toFixed(3);
         this._inputBolsa.value = '';
         this._inputCodigo.value = '';
-        this._retorno.value = '';
+        this._inputRetorno.value = 0.000.toFixed(3);;
         this._inputCota.value = 1;
         this._inputValor.value = 0.000.toFixed(3);
 

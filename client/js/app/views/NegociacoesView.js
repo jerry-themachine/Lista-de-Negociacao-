@@ -41,7 +41,7 @@ class NegociacoesView extends View {
                                    let textToUper = n.banco.charAt(0).toUpperCase() + n.banco.slice(1);
                                                                    
                                     for (let i = 0; i < textToUper.length; i++) {
-                                        if (textToUper.charAt(i) ===" ") {
+                                        if (textToUper.charAt(i) === " ") {
                                 
                                             //Convertendo caractére após o espaço em maiúsculo
                                             let textConvert = textToUper.charAt(i+1).toUpperCase();
@@ -61,12 +61,39 @@ class NegociacoesView extends View {
                                 })()                             
                                                                                    
                             }</td>
-                            <td>${n.pais}</td>
+                            <td>${
+                                
+                                (function () {
+
+                                    //Convertendo primeiro caractére em maiúsculo
+                                   let textToUper1 = n.pais.charAt(0).toUpperCase() + n.pais.slice(1);
+                                                                   
+                                    for (let i = 0; i < textToUper1.length; i++) {
+                                        if (textToUper1.charAt(i) === " ") {
+                                
+                                            //Convertendo caractére após o espaço em maiúsculo
+                                            let textConvert = textToUper1.charAt(i+1).toUpperCase();
+                                
+                                            //Inserindo texto antes do espaço na variável
+                                            let textBegin = textToUper1.slice(0, (i+1));
+                                
+                                            //Inserindo texto depois do espaço na variável
+                                            let textEndSpace = textToUper1.slice(i + 2);
+                                
+                                            //Concatenando todas as strings em apenas uma 
+                                            textToUper1 = textBegin + textConvert + textEndSpace;
+                                
+                                        } 
+                                    }
+                                    return textToUper1;
+                                })()                             
+                                
+                            }</td>
                             <td style="font-weight: bold ">${DateHelper.dataParaTexto(n.data)}</td>
                             <td>${n.variacao}</td>
-                            <td style="text-align: center">${n.bolsa}</td>
-                            <td style="text-align: center">${n.codigo}</td>
-                            <td style="text-align: center">${n.retorno.toFixed(3)}</td>
+                            <td style="text-align: center">${n.bolsa.toUpperCase()}</td>
+                            <td style="text-align: center">${n.codigo.toUpperCase()}</td>
+                            <td style="text-align: center">${n.retorno}</td>
                             <td style="text-align: center">${n.cota}</td>
                             <td>US$ ${n.valor}</td>
                             <td>US$ ${n.total.toFixed(3)}</td>
