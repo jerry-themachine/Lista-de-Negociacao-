@@ -13,16 +13,16 @@ class NegociacoesView extends View {
                 <tr>
                     <th style="text-align: center; vertical-align:middle">BANCO - RAZÃO SOCIAL</th>
                     <th style="text-align: center; vertical-align:middle">PAÍS</th>
-                    <th style="text-align: center; vertical-align:middle">DATA<br>COMPRA</th>
+                    <th style="text-align: center; vertical-align:middle; cursor: pointer" onclick="negociacaoController.ordena('data')"; cursor: "pointer">DATA<br>COMPRA</th>
 
-                    <th style="text-align: center; vertical-align:middle">VARIAÇÂO<br>(%)</th>
+                    <th style="text-align: center; vertical-align:middle; cursor: pointer" onclick="negociacaoController.ordena('variacao')">VARIAÇÂO<br>(%)</th>
                     <th style="text-align: center; vertical-align:middle">BOLSA</th> 
                     <th style="text-align: center; vertical-align:middle">CÒDIGO</th>   
                                     
-                    <th style="text-align: center; vertical-align:middle">RETORNO<br>30 DIAS</th>
-                    <th style="text-align: center; vertical-align:middle">COTA</th>
-                    <th style="text-align: center; vertical-align:middle">VALOR <br> UNIT.</th>
-                    <th style="text-align: center; vertical-align:middle">TOTAL <br> COMPRA</th>
+                    <th style="text-align: center; vertical-align:middle; cursor: pointer" onclick="negociacaoController.ordena('retorno')">RETORNO<br>30 DIAS</th>
+                    <th style="text-align: center; vertical-align:middle; cursor: pointer" onclick="negociacaoController.ordena('cota')">COTA</th>
+                    <th style="text-align: center; vertical-align:middle; cursor: pointer" onclick="negociacaoController.ordena('valor')">VALOR <br> UNIT.</th>
+                    <th style="text-align: center; vertical-align:middle; cursor: pointer" onclick="negociacaoController.ordena('total')">TOTAL <br> COMPRA</th>
                 </tr>
             </thead>
             

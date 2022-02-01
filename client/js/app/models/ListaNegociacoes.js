@@ -42,5 +42,15 @@ class ListaNegociacoes {
         return total.toFixed(2);
     }; */
 
+
+    //Método para interação do usuário com as tabelas
+    ordena(criterio) {
+        this._negociacoes.sort(criterio);
+    }
+
+    inverte() {
+        this._negociacoes.reverse();
+    }
+
 };
 

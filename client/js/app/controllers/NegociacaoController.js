@@ -2,6 +2,9 @@ class NegociacaoController{
 
     constructor() {
 
+        //Com a página carregada não existirá critério, só existirá quando o usuário clicar nas colunas
+        this._ordemAtual = '';
+
         //transformando "document.getElementById" em uma variável => "$", através de "bind" ele irá manter a associação com "document"
         let $ = document.getElementById.bind(document);
           
@@ -25,7 +28,7 @@ class NegociacaoController{
             new NegociacoesView($('negociacoesView')), // => (view)
             //['adiciona', 'esvazia'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
             
-            'adiciona', 'esvazia' // => (props)
+            'adiciona', 'esvazia', 'ordena', 'inverte' // => (props)
             );
                      
 
@@ -129,6 +132,19 @@ class NegociacaoController{
         this._inputBanco.focus(); 
     }
     
+    //Método para ordenar a lista de negociações, renderizando-a através da interação do usuário com cliques
+    ordena(coluna) {
+
+        if(this._ordemAtual == coluna) {
+            this._listaNegociacoes.inverte();
+        }else {
+            this._listaNegociacoes.ordena((a,b) => a[coluna] - b[coluna]);
+        }
+
+        this._ordemAtual = coluna;
+        
+    };
+   
 };
 
 
