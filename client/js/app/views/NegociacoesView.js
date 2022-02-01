@@ -62,7 +62,7 @@ class NegociacoesView extends View {
                                                                                    
                             }</td>
                             <td>${n.pais}</td>
-                            <td>${DateHelper.dataParaTexto(n.data)}</td>
+                            <td style="font-weight: bold ">${DateHelper.dataParaTexto(n.data)}</td>
                             <td>${n.variacao}</td>
                             <td style="text-align: center">${n.bolsa}</td>
                             <td style="text-align: center">${n.codigo}</td>

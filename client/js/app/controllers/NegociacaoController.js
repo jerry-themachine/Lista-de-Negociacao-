@@ -128,6 +128,7 @@ class NegociacaoController{
 
         this._inputBanco.focus(); 
     }
+    
 };
 
 
