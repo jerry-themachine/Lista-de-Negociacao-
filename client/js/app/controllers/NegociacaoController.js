@@ -47,22 +47,30 @@ class NegociacaoController{
             'texto' // => (props)
         );
                    
-    }
+    };
    
     //Método para adicionar negociação 
     adiciona(event){
 
         event.preventDefault();      
         
-        this._listaNegociacoes.adiciona(this._criaNegociacao());
-        
-        this._mensagem.texto = 'Negociação inserida com sucesso';
-        //this._mensagemView.update(this._mensagem);//Foi para o ProxyFactory
-        
-        this._limpaFormulario();
+        //Tratando erros
+        try {
 
-        console.log(this._listaNegociacoes.negociacoes);        
-    }
+            this._listaNegociacoes.adiciona(this._criaNegociacao());
+            
+            this._mensagem.texto = 'Negociação inserida com sucesso';
+            //this._mensagemView.update(this._mensagem);//Foi para o ProxyFactory
+            
+            this._limpaFormulario();
+
+            console.log(this._listaNegociacoes.negociacoes);
+
+        } catch(erro) {
+
+            this._mensagem.texto = erro;
+        };
+    };
 
     //Método para importar negociações 
     importaNegociacoes() {
@@ -89,7 +97,7 @@ class NegociacaoController{
             this._mensagem.text = erro;
         });
                                                                            
-    }
+    };
 
     //Método para deletar lista de negociações
     apaga() {
@@ -99,7 +107,7 @@ class NegociacaoController{
         this._mensagem.texto = 'Negociações deletadas com sucesso';
         //this._mensagemView.update(this._mensagem);//Foi para o ProxyFactory
 
-    }
+    };
 
     //Método para criar negociação com base nos valores dos dados obtidos através do formulário
     _criaNegociacao() {
@@ -114,7 +122,7 @@ class NegociacaoController{
             this._inputRetorno.value,
             this._inputCota.value,
             this._inputValor.value);
-    }
+    };
 
     //Método para limpeza do formulário preenchido e após ser submetido
     _limpaFormulario() {
@@ -130,7 +138,7 @@ class NegociacaoController{
         this._inputValor.value = 0.000.toFixed(3);
 
         this._inputBanco.focus(); 
-    }
+    };
     
     //Método para ordenar a lista de negociações, renderizando-a através da interação do usuário com cliques
     ordena(coluna) {
@@ -139,7 +147,7 @@ class NegociacaoController{
             this._listaNegociacoes.inverte();
         }else {
             this._listaNegociacoes.ordena((a,b) => a[coluna] - b[coluna]);
-        }
+        };
 
         this._ordemAtual = coluna;
         
