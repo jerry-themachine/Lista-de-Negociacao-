@@ -1,9 +1,6 @@
 class NegociacaoController{
 
-    constructor() {
-
-        //Com a página carregada não existirá critério, só existirá quando o usuário clicar nas colunas
-        this._ordemAtual = '';
+    constructor() {        
 
         //transformando "document.getElementById" em uma variável => "$", através de "bind" ele irá manter a associação com "document"
         let $ = document.getElementById.bind(document);
@@ -46,31 +43,48 @@ class NegociacaoController{
 
             'texto' // => (props)
         );
-                   
+
+        //Com a página carregada não existirá critério, só existirá quando o usuário clicar nas colunas
+        this._ordemAtual = '';
+
+        ConnectionFactory
+        .getConnection()
+        .then((connection) => {
+           return new NegociacaoDao(connection)
+        })
+        .then((dao) => {
+           return dao.listaTodos()
+        })
+        .then((negociacoes) => {
+            return negociacoes.forEach((negociacao) => 
+                this._listaNegociacoes.adiciona(negociacao))
+        })
+        .catch(erro => {
+            console.log(erro)
+            this._mensagem.texto = error
+        });
+            
+                               
     };
    
     //Método para adicionar negociação 
     adiciona(event){
 
         event.preventDefault();      
-        
-        //Tratando erros
-        try {
 
-            this._listaNegociacoes.adiciona(this._criaNegociacao());
-            
-            this._mensagem.texto = 'Negociação inserida com sucesso';
-            //this._mensagemView.update(this._mensagem);//Foi para o ProxyFactory
-            
-            this._limpaFormulario();
+        ConnectionFactory.getConnection().then(connection => {
 
-            console.log(this._listaNegociacoes.negociacoes);
+            let negociacao = this._criaNegociacao();
 
-        } catch(erro) {
+            new NegociacaoDao(connection).adiciona(negociacao).then(() => {
+                    this._listaNegociacoes.adiciona(negociacao);
+                    this._mensagem.texto = 'Negociação inserida com sucesso';
+                    this._limpaFormulario();
 
-            this._mensagem.texto = erro;
-        };
+                })
+        }).catch(erro => this._mensagem.texto = erro);   
     };
+
 
     //Método para importar negociações 
     importaNegociacoes() {
@@ -102,6 +116,20 @@ class NegociacaoController{
     //Método para deletar lista de negociações
     apaga() {
 
+        ConnectionFactory
+        .getConnection()
+        .then((connection) => {
+            return new NegociacaoDao(connection);
+        })
+        .then((dao) => {
+            return dao.apagaTodos();
+        })
+        .then((mensagem) => {
+            this._mensagem.texto = mensagem;
+            this._listaNegociacoes.esvazia();
+        });
+
+
         this._listaNegociacoes.esvazia();        
 
         this._mensagem.texto = 'Negociações deletadas com sucesso';
@@ -116,12 +144,12 @@ class NegociacaoController{
             this._inputBanco.value,
             this._inputPais.value,
             DateHelper.textoParaData(this._inputData.value),
-            this._inputVariacao.value,
+            parseFloat(this._inputVariacao.value),
             this._inputBolsa.value,
             this._inputCodigo.value,
-            this._inputRetorno.value,
-            this._inputCota.value,
-            this._inputValor.value);
+            parseFloat(this._inputRetorno.value),
+            parseInt(this._inputCota.value),
+            parseFloat(this._inputValor.value));
     };
 
     //Método para limpeza do formulário preenchido e após ser submetido
