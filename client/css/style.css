@@ -22,6 +22,15 @@
     margin:0 45px 5px 0;
 }
 
+.mensagemView {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+#mensagemView, #mensagemView2 {
+    width: 40%;
+}
 
 
 

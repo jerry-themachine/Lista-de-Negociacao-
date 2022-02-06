@@ -44,6 +44,17 @@ class NegociacaoController{
             'texto' // => (props)
         );
 
+         //Instanciando a classe Bind
+         this._mensagem2 = new Bind (      // => (model, view, props)
+         new Mensagem(), // => (model)
+         
+         //Instanciando a classe MensagemView
+         new MensagemView($('mensagemView2')), // => (view)
+         //['texto'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
+
+         'texto' // => (props)
+     );
+
         //Com a página carregada não existirá critério, só existirá quando o usuário clicar nas colunas
         this._ordemAtual = '';
 
@@ -64,52 +75,66 @@ class NegociacaoController{
                 this._mensagem.texto = error
             });
 
-        //Método para atualizar aas importações automaticamente de 05 em 05 minutos   
-        /* function tempoInicio() {
-            
-            setTimeout(() => {
 
-                this._mensagem.texto = `Buscando atualização da lista`;               
-            }, 1000);            
-        };
-
-        tempoInicio(); */
-
-
+        //Método para o usuário atualizar as importações através do botão "Atulizar Lista"   
+        
         let hh = 0;
         let mm = 0;
         let ss = 0;
+        let th = '';
+        let tm = '';
+        let ts = '';      
 
+
+        setInterval(() => { 
+
+            this.importaNegociacoes();
+            this._mensagem2.texto = timer();                    
+                            
+        }, 1000);  
         
-        
-
-
-        let start = setInterval(() => { 
-                this.importaNegociacoes();
-                this._mensagem.texto = timer();
-                    
-                                
-            }, 1000);
-         
-
         
 
         function timer() {
 
+            //MensagemView2 com informações em hora/min/seg sobre a útlima atualização executada 
+            if(ss <= 60){
+                ts = 'segundos';                
+            }else if(ss == 0){
+                ts = '';
+            }
+
+            if((mm >= 1) && (mm <= 60)){
+                ts = '';
+                tm = 'minutos';                    
+            }
+
+            if((hh == 1)){
+                tm = '';
+                ts = '';
+                th = 'hora';                       
+            } else if(hh >= 2){                        
+                tm = '';
+                ts = '';
+                th = 'horas'
+            }
+
+
+            //cronômetro
             ss++;
             if(ss == 60) {
                 ss = 0;
                 mm++;
                 if(mm == 60){
                     mm = 0;
-                    hh++;
+                    hh++;                   
 
                 }
             }
-
+           
             
-           let format = `Lista de negociações atualizada há ${hh < 10 ? '0' + hh:hh}:${mm < 10 ? '0' + mm:mm}:${ss < 10 ? '0' + ss:ss} horas`;
-           return format;
+            let format = `Lista de negociações atualizada há ${hh < 10 ? '0' + hh:hh}:${mm < 10 ? '0' + mm:mm}:${ss < 10 ? '0' + ss:ss} ${ts}${tm}${th}`;
+            return format;
         }                                    
     };
     
