@@ -48,25 +48,71 @@ class NegociacaoController{
         this._ordemAtual = '';
 
         ConnectionFactory
-        .getConnection()
-        .then((connection) => {
-           return new NegociacaoDao(connection)
-        })
-        .then((dao) => {
-           return dao.listaTodos()
-        })
-        .then((negociacoes) => {
-            return negociacoes.forEach((negociacao) => 
-                this._listaNegociacoes.adiciona(negociacao))
-        })
-        .catch(erro => {
-            console.log(erro)
-            this._mensagem.texto = error
-        });
+            .getConnection()
+            .then((connection) => {
+            return new NegociacaoDao(connection)
+            })
+            .then((dao) => {
+            return dao.listaTodos()
+            })
+            .then((negociacoes) => {
+                return negociacoes.forEach((negociacao) => 
+                    this._listaNegociacoes.adiciona(negociacao))
+            })
+            .catch(erro => {
+                console.log(erro)
+                this._mensagem.texto = error
+            });
+
+        //Método para atualizar aas importações automaticamente de 05 em 05 minutos   
+        /* function tempoInicio() {
             
-                               
+            setTimeout(() => {
+
+                this._mensagem.texto = `Buscando atualização da lista`;               
+            }, 1000);            
+        };
+
+        tempoInicio(); */
+
+
+        let hh = 0;
+        let mm = 0;
+        let ss = 0;
+
+        
+        
+
+
+        let start = setInterval(() => { 
+                this.importaNegociacoes();
+                this._mensagem.texto = timer();
+                    
+                                
+            }, 1000);
+         
+
+        
+
+        function timer() {
+
+            ss++;
+            if(ss == 60) {
+                ss = 0;
+                mm++;
+                if(mm == 60){
+                    mm = 0;
+                    hh++;
+
+                }
+            }
+
+            
+           let format = `Lista de negociações atualizada há ${hh < 10 ? '0' + hh:hh}:${mm < 10 ? '0' + mm:mm}:${ss < 10 ? '0' + ss:ss} horas`;
+           return format;
+        }                                    
     };
-   
+    
     //Método para adicionar negociação 
     adiciona(event){
 
@@ -101,6 +147,17 @@ class NegociacaoController{
             promiseSemanaAnterior, 
             promiseSemanaRetrasada]
             )
+        
+        .then((negociacoes) => {
+
+            return negociacoes.filter((negociacao) => {
+
+                return !this._listaNegociacoes.negociacoes.some((negociacaoExistente) => {
+
+                    return JSON.stringfy(negociacao) == JSON.stringify(negociacaoExistente)
+                })
+            })
+        })
         .then((negociacoes) => {            
             negociacoes
             .reduce((arrayAchatado, array) => arrayAchatado.concat(array), [])

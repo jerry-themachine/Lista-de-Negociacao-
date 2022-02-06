@@ -9,27 +9,65 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Página de envio de dados</title>
 </head>
-<body>
+<body class="container">
     
-    <form class="form">
+    <h1 class="text-center">Negociações de ativos bancários - Balanço Jan/2022</h1>
 
-        <div class="form-group">
-            <label for="data">Data</label>
-            <input type="date" id="data" class="form-control" required autofocus/>        
-        </div>    
+    <div id="mensagemView"></div>
 
-        <div class="form-group">
-            <label for="quantidade">Quantidade</label>
-            <input type="number" min="1" step="1" id="quantidade" class="form-control" value="1" required/>
-        </div>
+    <form id="form" class="form">
+        <div id="container">
+                
+            <div class="form-group">
+                <label for="banco">Banco</label>
+                <input id="banco" type="texto" class="form-control" required autofocus/>
+            </div>               
 
-        <div class="form-group">
-            <label for="valor">Valor</label>
-            <input id="valor" type="number" class="form-control"  min="0.01" step="0.01" value="0.0" required />
-        </div>
+            <div class="form-group">
+                <label for="pais">País</label>
+                <input id="pais" type="text" class="form-control" required autofocus/>
+            </div>
+
+            <div class="form-group">
+                <label for="data">Data</label>
+                <input id="data" type="date" class="form-control" required autofocus/>
+            </div>                
+                
+            <div class="form-group">
+                <label for="variacao">Variação Últimos 30 dias</label>
+                <input id="variacao" type="number" class="form-control" step=".001" required autofocus/>
+            </div>
+
+            <div class="form-group">
+                <label for="bolsa">Bolsa</label>
+                <input id="bolsa" type="text" class="form-control" required autofocus/>
+            </div>
+
+            <div class="form-group">
+                <label for="codigo">Código</label>
+                <input id="codigo" type="text" class="form-control" required autofocus/>
+            </div>
+        
+            <div class="form-group">
+                <label for="retorno">Retorno</label>
+                <input id="retorno" type="number" class="form-control" step=".001" required autofocus/>
+            </div>
+
+            <div class="form-group">
+                <label for="cota">Cota</label>
+                <input id="cota" type="number" min="1" step="1" class="form-control" value="1" required/>
+            </div>
+
+            <div class="form-group">
+                <label for="valor">Valor Unitário</label>
+                <input id="valor" type="number" class="form-control"  min="0.001" step="0.001" value="0.000" required/>
+            </div>
+
+        </div>   
 
         <button class="btn btn-primary" type="submit" onclick="sendPost(event)">Enviar dados para servidor</button>
     </form>
+
     <script src="js/app/services/HttpService.js"></script>
     <script>
         function sendPost(event) {
@@ -41,30 +79,31 @@
             let $ = document.getElementById.bind(document);
 
             inputBanco = $('banco');
-            pais = $('pais');
+            inputPais = $('pais');
             inputData = $('data');
             inputVariacao = $('variacao');
             inputBolsa = $('bolsa');
             inputCodigo = $('codigo');
-            retorno = $('retorno');
+            inputRetorno = $('retorno');
             inputCota = $('cota');
             inputValor = $('valor');   
 
             let negociacao = {
 
                 banco: inputBanco.value,
-                pais: pais.value,
-                data: DateHelper.textoParaData(inputData.value),
+                pais: inputPais.value,
+                data: inputData.value,
                 variacao: inputVariacao.value,
                 bolsa: inputBolsa.value,
                 codigo: inputCodigo.value,
-                retorno: retorno.value,
+                retorno: inputRetorno.value,
                 cota: inputCota.value,
                 valor: inputValor.value
                 
             };
 
             let xhr = new XMLHttpRequest();
+            
             xhr.open("POST", "/negociacoes", true);
             xhr.setRequestHeader("Content-type", "application/json");
 
@@ -75,7 +114,7 @@
                     if (xhr.status == 200) {
 
                         inputBanco.value = '';
-                        inputPaisvalue = '';
+                        inputPais.value = '';
                         inputData.value = '';
                         inputVariacao.value = 0.00.toFixed(2);
                         inputBolsa.value = '';
@@ -93,7 +132,7 @@
                 }
             }
             xhr.send(JSON.stringify(negociacao));
-
+            
     }
     </script>
 

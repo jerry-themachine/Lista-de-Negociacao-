@@ -7,24 +7,24 @@ function sendPost(event) {
     let $ = document.getElementById.bind(document);
 
     inputBanco = $('banco');
-    pais = $('pais');
+    inputPais = $('pais');
     inputData = $('data');
     inputVariacao = $('variacao');
     inputBolsa = $('bolsa');
     inputCodigo = $('codigo');
-    retorno = $('retorno');
+    inputRetorno = $('retorno');
     inputCota = $('cota');
     inputValor = $('valor');   
 
     let negociacao = {
 
         banco: inputBanco.value,
-        pais: pais.value,
+        pais: inputPais.value,
         data: DateHelper.textoParaData(inputData.value),
         variacao: inputVariacao.value,
         bolsa: inputBolsa.value,
         codigo: inputCodigo.value,
-        retorno: retorno.value,
+        retorno: inputRetorno.value,
         cota: inputCota.value,
         valor: inputValor.value
         
