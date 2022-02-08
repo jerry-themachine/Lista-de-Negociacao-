@@ -1,10 +1,18 @@
-class NegociacaoController{
+'use strict';
 
-    constructor() {        
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+var NegociacaoController = function () {
+    function NegociacaoController() {
+        var _this = this;
+
+        _classCallCheck(this, NegociacaoController);
 
         //transformando "document.getElementById" em uma variável => "$", através de "bind" ele irá manter a associação com "document"
-        let $ = document.getElementById.bind(document);
-          
+        var $ = document.getElementById.bind(document);
+
         //Atribuindo os id's do DOM à variáveis
         this._inputBanco = $('banco');
         this._inputPais = $('pais');
@@ -14,258 +22,244 @@ class NegociacaoController{
         this._inputCodigo = $('codigo');
         this._inputRetorno = $('retorno');
         this._inputCota = $('cota');
-        this._inputValor = $('valor');     
-                          
-        
+        this._inputValor = $('valor');
+
         //Instanciando a classe Bind para chamar o padrão de projeto ProxyFactory que atualiza a ListaNegociacoes quando é inserida ou deletada uma nova negociação  
-        this._listaNegociacoes = new Bind(      // => (model, view, props)
-            new ListaNegociacoes(), // => (model)
-            
-            //Instanciando  a classe NegociacoesView
-            new NegociacoesView($('negociacoesView')), // => (view)
-            //['adiciona', 'esvazia'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
-            
-            'adiciona', 'esvazia', 'ordena', 'inverte' // => (props)
-            );
-                     
+        this._listaNegociacoes = new Bind( // => (model, view, props)
+        new ListaNegociacoes(), // => (model)
 
-        //Padrão de projeto ProxyFactory para atualizar a Mensagem quando inserido ou deletado uma nova negociação
-        
-       
-               
-        //Instanciando a classe Bind
-        this._mensagem = new Bind (      // => (model, view, props)
-            new Mensagem(), // => (model)
-            
-            //Instanciando a classe MensagemView
-            new MensagemView($('mensagemView')), // => (view)
-            //['texto'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
+        //Instanciando  a classe NegociacoesView
+        new NegociacoesView($('negociacoesView')), // => (view)
+        //['adiciona', 'esvazia'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
 
-            'texto' // => (props)
+        'adiciona', 'esvazia', 'ordena', 'inverte' // => (props)
         );
 
-         //Instanciando a classe Bind
-         this._mensagem2 = new Bind (      // => (model, view, props)
-         new Mensagem(), // => (model)
-         
-         //Instanciando a classe MensagemView
-         new MensagemView($('mensagemView2')), // => (view)
-         //['texto'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
+        //Padrão de projeto ProxyFactory para atualizar a Mensagem quando inserido ou deletado uma nova negociação
 
-         'texto' // => (props)
-     );
+
+        //Instanciando a classe Bind
+        this._mensagem = new Bind( // => (model, view, props)
+        new Mensagem(), // => (model)
+
+        //Instanciando a classe MensagemView
+        new MensagemView($('mensagemView')), // => (view)
+        //['texto'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
+
+        'texto' // => (props)
+        );
+
+        //Instanciando a classe Bind
+        this._mensagem2 = new Bind( // => (model, view, props)
+        new Mensagem(), // => (model)
+
+        //Instanciando a classe MensagemView
+        new MensagemView($('mensagemView2')), // => (view)
+        //['texto'] => Retirado o sinal de array "[]" para uso do rest operator(...) na classe Bind
+
+        'texto' // => (props)
+        );
 
         //Com a página carregada não existirá critério, só existirá quando o usuário clicar nas colunas
         this._ordemAtual = '';
 
-        ConnectionFactory
-            .getConnection()
-            .then((connection) => {
-            return new NegociacaoDao(connection)
-            })
-            .then((dao) => {
-            return dao.listaTodos()
-            })
-            .then((negociacoes) => {
-                return negociacoes.forEach((negociacao) => 
-                    this._listaNegociacoes.adiciona(negociacao))
-            })
-            .catch(erro => {
-                console.log(erro)
-                this._mensagem.texto = error
+        ConnectionFactory.getConnection().then(function (connection) {
+            return new NegociacaoDao(connection);
+        }).then(function (dao) {
+            return dao.listaTodos();
+        }).then(function (negociacoes) {
+            return negociacoes.forEach(function (negociacao) {
+                return _this._listaNegociacoes.adiciona(negociacao);
             });
-
+        }).catch(function (erro) {
+            console.log(erro);
+            _this._mensagem.texto = erro;
+        });
 
         //Método para o usuário atualizar as importações através do botão "Atulizar Lista"   
-        
-        let hh = 0;
-        let mm = 0;
-        let ss = 0;
-        let th = '';
-        let tm = '';
-        let ts = '';      
 
+        var hh = 0;
+        var mm = 0;
+        var ss = 0;
+        var th = '';
+        var tm = '';
+        var ts = '';
 
-        setInterval(() => { 
+        setInterval(function () {
 
-            this.importaNegociacoes();
-            this._mensagem2.texto = timer();                    
-                            
-        }, 1000);  
-        
-        
+            _this.importaNegociacoes();
+            _this._mensagem2.texto = timer();
+        }, 1000);
 
         function timer() {
 
             //MensagemView2 com informações em hora/min/seg sobre a útlima atualização executada 
-            if(ss <= 60){
-                ts = 'segundos';                
-            }else if(ss == 0){
+            if (ss <= 60) {
+                ts = 'segundos';
+            } else if (ss == 0) {
                 ts = '';
             }
 
-            if((mm >= 1) && (mm <= 60)){
+            if (mm >= 1 && mm <= 60) {
                 ts = '';
-                tm = 'minutos';                    
+                tm = 'minutos';
             }
 
-            if((hh == 1)){
+            if (hh == 1) {
                 tm = '';
                 ts = '';
-                th = 'hora';                       
-            } else if(hh >= 2){                        
+                th = 'hora';
+            } else if (hh >= 2) {
                 tm = '';
                 ts = '';
-                th = 'horas'
+                th = 'horas';
             }
-
 
             //cronômetro
             ss++;
-            if(ss == 60) {
+            if (ss == 60) {
                 ss = 0;
                 mm++;
-                if(mm == 60){
+                if (mm == 60) {
                     mm = 0;
-                    hh++;                   
-
+                    hh++;
                 }
             }
-           
-            
-            let format = `Lista de negociações atualizada há ${hh < 10 ? '0' + hh:hh}:${mm < 10 ? '0' + mm:mm}:${ss < 10 ? '0' + ss:ss} ${ts}${tm}${th}`;
+
+            var format = 'Lista de negocia\xE7\xF5es atualizada h\xE1 ' + (hh < 10 ? '0' + hh : hh) + ':' + (mm < 10 ? '0' + mm : mm) + ':' + (ss < 10 ? '0' + ss : ss) + ' ' + ts + tm + th;
             return format;
-        }                                    
-    };
-    
-    //Método para adicionar negociação 
-    adiciona(event){
+        }
+    }
 
-        event.preventDefault();      
-
-        ConnectionFactory.getConnection().then(connection => {
-
-            let negociacao = this._criaNegociacao();
-
-            new NegociacaoDao(connection).adiciona(negociacao).then(() => {
-                    this._listaNegociacoes.adiciona(negociacao);
-                    this._mensagem.texto = 'Negociação inserida com sucesso';
-                    this._limpaFormulario();
-
-                })
-        }).catch(erro => this._mensagem.texto = erro);   
-    };
+    _createClass(NegociacaoController, [{
+        key: 'adiciona',
 
 
-    //Método para importar negociações 
-    importaNegociacoes() {
-        
-        let service = new NegociacaoService();
+        //Método para adicionar negociação 
+        value: function adiciona(event) {
+            var _this2 = this;
 
-        let promiseSemanaAtual = service.obterNegociacoesDaSemanaAtual();
-        let promiseSemanaAnterior = service.obterNegociacoesDaSemanaAnterior();
-        let promiseSemanaRetrasada = service.obterNegociacoesDaSemanaRetrasada();
+            event.preventDefault();
 
-        //Resolvendo as promises na ordem especificada
-        Promise.all([
-            promiseSemanaAtual, 
-            promiseSemanaAnterior, 
-            promiseSemanaRetrasada]
-            )
-        
-        .then((negociacoes) => {
+            ConnectionFactory.getConnection().then(function (connection) {
 
-            return negociacoes.filter((negociacao) => {
+                var negociacao = _this2._criaNegociacao();
 
-                return !this._listaNegociacoes.negociacoes.some((negociacaoExistente) => {
+                new NegociacaoDao(connection).adiciona(negociacao).then(function () {
+                    _this2._listaNegociacoes.adiciona(negociacao);
+                    _this2._mensagem.texto = 'Negociação inserida com sucesso';
+                    _this2._limpaFormulario();
+                });
+            }).catch(function (erro) {
+                return _this2._mensagem.texto = erro;
+            });
+        }
+    }, {
+        key: 'importaNegociacoes',
 
-                    return JSON.stringfy(negociacao) == JSON.stringify(negociacaoExistente)
-                })
-            })
-        })
-        .then((negociacoes) => {            
-            negociacoes
-            .reduce((arrayAchatado, array) => arrayAchatado.concat(array), [])
-            .forEach(negociacao => this._listaNegociacoes.adiciona(negociacao));
-            this._mensagem.texto = 'Negociações importadas com sucesso'; 
-        })
-        .catch((erro) => {
-            this._mensagem.text = erro;
-        });
-                                                                           
-    };
 
-    //Método para deletar lista de negociações
-    apaga() {
+        //Método para importar negociações 
+        value: function importaNegociacoes() {
+            var _this3 = this;
 
-        ConnectionFactory
-        .getConnection()
-        .then((connection) => {
-            return new NegociacaoDao(connection);
-        })
-        .then((dao) => {
-            return dao.apagaTodos();
-        })
-        .then((mensagem) => {
-            this._mensagem.texto = mensagem;
+            var service = new NegociacaoService();
+
+            var promiseSemanaAtual = service.obterNegociacoesDaSemanaAtual();
+            var promiseSemanaAnterior = service.obterNegociacoesDaSemanaAnterior();
+            var promiseSemanaRetrasada = service.obterNegociacoesDaSemanaRetrasada();
+
+            //Resolvendo as promises na ordem especificada
+            Promise.all([promiseSemanaAtual, promiseSemanaAnterior, promiseSemanaRetrasada]).then(function (negociacoes) {
+
+                return negociacoes.filter(function (negociacao) {
+
+                    return !_this3._listaNegociacoes.negociacoes.some(function (negociacaoExistente) {
+
+                        return JSON.stringfy(negociacao) == JSON.stringify(negociacaoExistente);
+                    });
+                });
+            }).then(function (negociacoes) {
+                negociacoes.reduce(function (arrayAchatado, array) {
+                    return arrayAchatado.concat(array);
+                }, []).forEach(function (negociacao) {
+                    return _this3._listaNegociacoes.adiciona(negociacao);
+                });
+                _this3._mensagem.texto = 'Negociações importadas com sucesso';
+            }).catch(function (erro) {
+                _this3._mensagem.text = erro;
+            });
+        }
+    }, {
+        key: 'apaga',
+
+
+        //Método para deletar lista de negociações
+        value: function apaga() {
+            var _this4 = this;
+
+            ConnectionFactory.getConnection().then(function (connection) {
+                return new NegociacaoDao(connection);
+            }).then(function (dao) {
+                return dao.apagaTodos();
+            }).then(function (mensagem) {
+                _this4._mensagem.texto = mensagem;
+                _this4._listaNegociacoes.esvazia();
+            });
+
             this._listaNegociacoes.esvazia();
-        });
+
+            this._mensagem.texto = 'Negociações deletadas com sucesso';
+            //this._mensagemView.update(this._mensagem);//Foi para o ProxyFactory
+        }
+    }, {
+        key: '_criaNegociacao',
 
 
-        this._listaNegociacoes.esvazia();        
+        //Método para criar negociação com base nos valores dos dados obtidos através do formulário
+        value: function _criaNegociacao() {
 
-        this._mensagem.texto = 'Negociações deletadas com sucesso';
-        //this._mensagemView.update(this._mensagem);//Foi para o ProxyFactory
-
-    };
-
-    //Método para criar negociação com base nos valores dos dados obtidos através do formulário
-    _criaNegociacao() {
-
-        return new Negociacao(
-            this._inputBanco.value,
-            this._inputPais.value,
-            DateHelper.textoParaData(this._inputData.value),
-            parseFloat(this._inputVariacao.value),
-            this._inputBolsa.value,
-            this._inputCodigo.value,
-            parseFloat(this._inputRetorno.value),
-            parseInt(this._inputCota.value),
-            parseFloat(this._inputValor.value));
-    };
-
-    //Método para limpeza do formulário preenchido e após ser submetido
-    _limpaFormulario() {
-
-        this._inputBanco.value = '';
-        this._inputPais.value = '';
-        this._inputData.value = '';
-        this._inputVariacao.value = 0.000.toFixed(3);
-        this._inputBolsa.value = '';
-        this._inputCodigo.value = '';
-        this._inputRetorno.value = 0.000.toFixed(3);;
-        this._inputCota.value = 1;
-        this._inputValor.value = 0.000.toFixed(3);
-
-        this._inputBanco.focus(); 
-    };
-    
-    //Método para ordenar a lista de negociações, renderizando-a através da interação do usuário com cliques
-    ordena(coluna) {
-
-        if(this._ordemAtual == coluna) {
-            this._listaNegociacoes.inverte();
-        }else {
-            this._listaNegociacoes.ordena((a,b) => a[coluna] - b[coluna]);
-        };
-
-        this._ordemAtual = coluna;
-        
-    };
-   
-};
+            return new Negociacao(this._inputBanco.value, this._inputPais.value, DateHelper.textoParaData(this._inputData.value), parseFloat(this._inputVariacao.value), this._inputBolsa.value, this._inputCodigo.value, parseFloat(this._inputRetorno.value), parseInt(this._inputCota.value), parseFloat(this._inputValor.value));
+        }
+    }, {
+        key: '_limpaFormulario',
 
 
+        //Método para limpeza do formulário preenchido e após ser submetido
+        value: function _limpaFormulario() {
+
+            this._inputBanco.value = '';
+            this._inputPais.value = '';
+            this._inputData.value = '';
+            this._inputVariacao.value = 0.000.toFixed(3);
+            this._inputBolsa.value = '';
+            this._inputCodigo.value = '';
+            this._inputRetorno.value = 0.000.toFixed(3);;
+            this._inputCota.value = 1;
+            this._inputValor.value = 0.000.toFixed(3);
+
+            this._inputBanco.focus();
+        }
+    }, {
+        key: 'ordena',
 
 
+        //Método para ordenar a lista de negociações, renderizando-a através da interação do usuário com cliques
+        value: function ordena(coluna) {
 
+            if (this._ordemAtual == coluna) {
+                this._listaNegociacoes.inverte();
+            } else {
+                this._listaNegociacoes.ordena(function (a, b) {
+                    return a[coluna] - b[coluna];
+                });
+            };
+
+            this._ordemAtual = coluna;
+        }
+    }]);
+
+    return NegociacaoController;
+}();
+
+;
+//# sourceMappingURL=NegociacaoController.js.map
